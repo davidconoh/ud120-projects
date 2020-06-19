@@ -1,0 +1,27 @@
+
+"""
+   Choose Your Own Algorithm
+"""
+
+Classifier: GaussianNB
+Accuracy: 0.884
+
+
+Classifier: SVC
+Accuracy: 0.932
+
+
+Classifier: DecisionTreeClassifier
+Accuracy: 0.912
+
+
+Classifier: KNeighborsClassifier
+Accuracy: 0.936
+
+
+Classifier: AdaBoostClassifier
+Accuracy: 0.664
+
+
+Classifier: RandomForestClassifier
+Accuracy: 0.664
