@@ -41,25 +41,37 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
-        temp_counter += 1
+        # temp_counter += 1
         if temp_counter < 200:
             path = os.path.join('..', path[:-1])
-            print path
+            # print path
             email = open(path, "r")
 
             ### use parseOutText to extract the text from the opened email
+            text = parseOutText(email)
+            new_text = text
 
             ### use str.replace() to remove any instances of the words
             ### ["sara", "shackleton", "chris", "germani"]
+            words = ["sara", "shackleton", "chris", "germani", "sshacklensf", "cgermannsf"]
+            for word in words:
+                if word in new_text:
+                    new_text = new_text.replace(word, '')
 
             ### append the text to word_data
+            word_data.append(new_text)
 
             ### append a 0 to from_data if email is from Sara, and 1 if email is from Chris
+            if from_person == from_sara:
+                from_data.append(0)
+            else:
+                from_data.append(1)
 
 
             email.close()
 
 print "emails processed"
+print word_data[152]
 from_sara.close()
 from_chris.close()
 
@@ -71,5 +83,10 @@ pickle.dump( from_data, open("your_email_authors.pkl", "w") )
 
 
 ### in Part 4, do TfIdf vectorization here
-
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer(stop_words='english', lowercase=True)
+data = vectorizer.fit_transform(word_data)
+vocab_list = vectorizer.get_feature_names()
+print len(word_data)
+print "Number of unique words in Tfidf: ", len(vocab_list)
+print "Word number 34597 in vocab list is ", vocab_list[34597]

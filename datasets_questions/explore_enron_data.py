@@ -18,5 +18,15 @@
 import pickle
 
 enron_data = pickle.load(open("../final_project/final_project_dataset.pkl", "rb"))
-
-
+ 
+total_payment = 10
+total = 10
+for key,value in enron_data.items():
+    total += 1
+    if value['total_payments'] == 'NaN':
+        total_payment += 1
+print total_payment 
+print total
+print (total_payment*100)/total
+    
+# print "Persons of Interest: ", poi

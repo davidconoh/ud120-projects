@@ -16,7 +16,6 @@ from feature_format import featureFormat, targetFeatureSplit
 
 
 
-
 def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature 1", f2_name="feature 2"):
     """ some plotting code designed to help you visualize your clusters """
 
@@ -37,7 +36,6 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
     plt.show()
 
 
-
 ### load in the dict of dicts containing all the data on each person in the dataset
 data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r") )
 ### there's an outlier--remove it! 
@@ -48,6 +46,7 @@ data_dict.pop("TOTAL", 0)
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
+# feature_3 = "total_payments"
 poi  = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
@@ -62,15 +61,29 @@ for f1, f2 in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
 
+
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
+from sklearn.cluster import KMeans
+cls = KMeans(n_clusters=2)
+cls.fit(finance_features)
+pred = cls.predict(finance_features)
 
+# salary = [value["salary"] for key, value in data_dict.items() if value["salary"] != 'NaN']
+# stock = [value["exercised_stock_options"] for key, value in data_dict.items() if value["exercised_stock_options"] != 'NaN']
 
+# re_salary = (200000.0 - min(salary)) / (max(salary) - min(salary))
 
+# re_stock = (1000000.0 - min(stock)) / (max(stock) - min(stock))
 
 ### rename the "name" parameter when you change the number of features
+
 ### so that the figure gets saved to a different file
 try:
     Draw(pred, finance_features, poi, mark_poi=False, name="clusters.pdf", f1_name=feature_1, f2_name=feature_2)
+    # print salary
+    # print stock
+    # print "Salary: "+str(re_salary)
+    # print "Stock: "+str(re_stock)
 except NameError:
     print "no predictions object named pred found, no clusters to plot"

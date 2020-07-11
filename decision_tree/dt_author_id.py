@@ -24,10 +24,10 @@ features_train, features_test, labels_train, labels_test = preprocess()
 print()
 print("Classifier: DecisionTreeClassifier")
 # import the sklearn module for GaussianNB
-from sklearn import tree
+from sklearn.tree import DecisionTreeClassifier
 
 # create classifier
-clf = tree.DecisionTreeClassifier(min_samples_split=40) #TODO
+clf = DecisionTreeClassifier(min_samples_split=40) #TODO
 
 # fit the classifier on the training features and labels
 t0 = time()
