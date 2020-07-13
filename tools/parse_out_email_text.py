@@ -50,8 +50,6 @@ def main():
     text = parseOutText(ff)
     print text
 
-
-
 if __name__ == '__main__':
     main()
 

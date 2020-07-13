@@ -35,8 +35,6 @@ features_test  = vectorizer.transform(features_test).toarray()
 features_train = features_train[:150]
 labels_train   = labels_train[:150]
 
-
-
 ### your code goes here
 from sklearn.tree import DecisionTreeClassifier
 clf = DecisionTreeClassifier()
